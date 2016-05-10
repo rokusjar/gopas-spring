@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+    <body>
+
+        <script th:inline="javascript">
+            var items = /*[[${itemsDto}]]*/ 'items';
+        </script>
+
+        <table>
+            <tr th:each="item : ${items}">
+                <td th:text="${item.id}"></td>
+                <td th:text="${item.name}"></td>
+                <td th:text="${item.price}"></td>
+            </tr>
+        </table>
+    </body>
+</html>
