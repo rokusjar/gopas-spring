@@ -12,11 +12,11 @@ public class OrderedItem {
     @Column(name = "ordereditemid")
     private int id;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY) //vychozi nastaveni ja eager a to nechceme
     @JoinColumn(name = "item_id")
     private Item item;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_order_id")
     private UserOrder userOrder;
 
