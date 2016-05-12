@@ -2,12 +2,15 @@ package cz.gopas.eshop.controller;
 
 import java.util.*;
 import java.util.stream.*;
+import javax.validation.*;
 import org.dozer.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.transaction.annotation.*;
 import org.springframework.ui.*;
+import org.springframework.validation.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.*;
 import cz.gopas.eshop.dto.*;
 import cz.gopas.eshop.entity.*;
 import cz.gopas.eshop.service.*;
@@ -33,4 +36,31 @@ public class IndexController {
 
         return "index";
     }
+
+
+    @ModelAttribute
+    public Item construct() {
+        return new Item();
+    }
+
+
+    @RequestMapping(value = "/form", method = RequestMethod.GET)
+    public String form() {
+        return "item-form";
+    }
+
+    @RequestMapping(value = "/form", method = RequestMethod.POST)
+    public String save(Model model, @ModelAttribute @Valid Item item, BindingResult bindingResult,
+        RedirectAttributes redirectAttributes) {
+
+        if(bindingResult.hasErrors()){
+            return index(model);
+        }
+
+        itemService.save(item);
+        redirectAttributes.addFlashAttribute("succes", true);
+        return "redirect:/";
+    }
+
+
 }

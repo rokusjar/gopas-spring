@@ -1,18 +1,40 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns="http://www.w3.org/1999/xhtml">
+
+    <head>
+        <link rel="stylesheet" href="/webjars/bootstrap/3.3.6/css/bootstrap.min.css" />
+    </head>
     <body>
+        <div class="container">
 
         <script th:inline="javascript">
             var items = /*[[${itemsDto}]]*/ 'items';
         </script>
 
-        <table>
+        <table class="table table-striped table-hover table-bordered">
             <tr th:each="item : ${items}">
                 <td th:text="${item.id}"></td>
                 <td th:text="${item.name}"></td>
                 <td th:text="${item.price}"></td>
             </tr>
         </table>
+
+            <form th:action="@{/form}" th:object="${item}" method="post">
+                <div class="form-group">
+                    <label>name:</label>
+                    <input type="text" th:field="*{name}" class="form-control" />
+                    <th:block th:errors="*{name}"></th:block>
+                </div>
+                <div class="form-group">
+                    <label>price:</label>
+                    <input type="text" th:field="*{price}" class="form-control" />
+                    <th:block th:errors="*{price}"></th:block>
+                </div>
+                <input type="submit" class="btn btn-danger" />
+            </form>
+
+
+        </div>
     </body>
 </html>

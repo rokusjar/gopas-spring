@@ -1,12 +1,16 @@
 package cz.gopas.eshop.controller;
 
+import java.io.*;
 import java.util.*;
+import javax.servlet.http.*;
 import org.dozer.*;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.http.*;
 import org.springframework.transaction.annotation.*;
 import org.springframework.web.bind.annotation.*;
 import cz.gopas.eshop.dto.*;
 import cz.gopas.eshop.entity.*;
+import cz.gopas.eshop.exception.*;
 import cz.gopas.eshop.service.*;
 
 @Transactional
@@ -20,6 +24,14 @@ public class ItemController {
     @Autowired
     private DozerBeanMapper mapper;
 
+    // Bude zavolana pokud URL /item bude obsahovat parametr sortBy
+    @RequestMapping(params = "sortBy")
+    public List<ItemDto> itemsSortedBy(@RequestParam String sortBy) {
+
+        //TODO
+        return null;
+    }
+
     @RequestMapping
     public List<ItemDto> items(){
 
@@ -30,7 +42,7 @@ public class ItemController {
         }
 
         return itemsDto;
-
+//        //funguje stejne
 //        return itemService.getItems().stream()
 //                .map(e -> mapper.map(e, ItemDto.class))
 //                .collect(Collectors.toList());
@@ -40,6 +52,14 @@ public class ItemController {
     public ItemDto item(@PathVariable int id){
 
         return mapper.map(itemService.getItem(id), ItemDto.class);
+    }
+
+    @ExceptionHandler
+    public void handleINFException(ItemNotFoundException ex, HttpServletResponse response)
+        throws IOException{
+
+        response.sendError(HttpServletResponse.SC_NOT_FOUND);
+
     }
 
     @RequestMapping("/search/{name}")

@@ -2,6 +2,7 @@ package cz.gopas.eshop.entity;
 
 import java.util.*;
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 @Entity
 public class Item {
@@ -14,8 +15,10 @@ public class Item {
     @OneToMany(mappedBy = "item")
     private List<OrderedItem> orderedItems;
 
+    @Size(min = 1, message = "Name cannot be empty!")
     private String name;
 
+    @Min(value = 1, message = "Price cannot be empty!")
     private double price;
 
     public Item() {

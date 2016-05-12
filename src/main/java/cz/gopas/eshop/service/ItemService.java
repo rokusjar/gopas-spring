@@ -6,6 +6,7 @@ import org.springframework.cache.annotation.*;
 import org.springframework.scheduling.annotation.*;
 import org.springframework.stereotype.*;
 import cz.gopas.eshop.entity.*;
+import cz.gopas.eshop.exception.*;
 import cz.gopas.eshop.repository.*;
 
 @Service
@@ -20,7 +21,12 @@ public class ItemService {
     }
 
     public Item getItem(int id){
-        return itemRepository.findOne(id);
+        Item item = itemRepository.findOne(id);
+        if(item == null){
+             throw new ItemNotFoundException("item not found!");
+        }else{
+            return item;
+        }
     }
 
     @Cacheable("items")
