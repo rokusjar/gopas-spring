@@ -16,6 +16,7 @@ import org.springframework.scheduling.annotation.*;
 @EnableCaching   //abych mohl kesovat
 @EnableScheduling      //abych mohl pouzivat scheduled
 @SpringBootApplication
+@ImportResource("classpath:security.xml") //zapojujeme do kontejneru konfiguraci ze souboru security.xml
 public class EshopWebApplication {
 
 	//chceme aby nas dozer mapper byl Singleton

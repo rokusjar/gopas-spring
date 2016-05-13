@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns="http://www.w3.org/1999/xhtml">
-
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
     <head>
         <link rel="stylesheet" href="/webjars/bootstrap/3.3.6/css/bootstrap.min.css" />
     </head>
     <body>
         <div class="container">
+
+        <a href="/login" sec:a>
 
         <script th:inline="javascript">
             var items = /*[[${itemsDto}]]*/ 'items';
